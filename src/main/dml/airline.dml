@@ -1,0 +1,91 @@
+package pt.tecnico.airline.domain;
+
+class AirlineManagementSystem {
+}
+
+class Airline {
+	String codeIATA;
+	String name;
+}
+
+class Flight {
+	long number;
+	DateTime time;
+}
+
+class Airport {
+	String codeIATA;
+	String codeICAO;
+	float cost;
+}
+
+class City {
+	String name;
+}
+
+// Relations
+
+relation AirlineHasFlights {
+	Airline playsRole airline {
+		multiplicity 1..1;
+	}
+	Flight playsRole flight {
+		multiplicity *;
+	}
+}
+
+relation AirlineHasAirports {
+	Airline playsRole airline {
+		multiplicity 1..1;
+	}
+	Airport playsRole airport {
+		multiplicity *;
+	}
+}
+
+relation FlightHasSourceAirport {
+	Flight playsRole usedAsSource {
+		multiplicity 0..1;
+	}
+	Airport playsRole sourceAirport {
+		multiplicity 1..1;
+	}
+}
+
+relation FlightHasTargeAirport {
+	Flight playsRole usedAsTarget {
+		multiplicity 0..1;
+	}
+	Airport playsRole targetAirport {
+		multiplicity 1..1;
+	}
+}
+
+relation AirportIsInACity {
+	Airport playsRole airport {
+		multiplicity 0..1;
+	}
+	City playsRole city {
+		multiplicity 1..1;
+	}
+}
+
+relation AirlineManagementSystemHasAirlines {
+	AirlineManagementSystem playsRole airlineManagementSystem {
+		multiplicity 1..1;
+	}
+	Airline playsRole airline {
+		multiplicity *;
+	}
+}
+
+relation DomainRootHasAirlineManagementSystem {
+  .pt.ist.fenixframework.DomainRoot playsRole root {
+    multiplicity 0..1;
+  }
+  AirlineManagementSystem playsRole airlineManagementSystem {
+    multiplicity 0..1;
+  }
+}
+
+// =====================
